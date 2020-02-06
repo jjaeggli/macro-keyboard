@@ -5,8 +5,9 @@
 This is intended as the firmware for a USB macro or shortcut keyboard, or for a
 gamepad input device. Actual usage may vary based on your specific use case. At
 the core of the design is a keypad matrix supporting full simultaneous key
-presses using only n x m pins. The mapping could be extended to a half or full
-keyboard. The current functionality is limited to my specific use cases.
+presses for *n* x *m* keys using only *n* + *m* pins. The mapping could be
+extended to a half or full keyboard. The current functionality is limited to my
+specific use cases.
 
 ## Features
 
