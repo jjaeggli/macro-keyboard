@@ -10,23 +10,12 @@
 const byte ROWS = 5;
 const byte COLS = 2;
 
-const char ALT_FN = 0;
-
-char keys[ROWS][COLS] = {
-  { 0, 5},
+uint8_t keys[ROWS][COLS] = {
   { 1, 6},
   { 2, 7},
   { 3, 8},
-  { 4, 9}
-};
-
-// By default, not mapped to any controls in X-Plane 11.
-KeyboardKeycode mapping[] = {
-  KEYPAD_1,
-  KEYPAD_3,
-  KEYPAD_5,
-  KEYPAD_7,
-  KEYPAD_9
+  { 4, 9},
+  { 5, 10}
 };
 
 byte rowPins[ROWS] = { 3, 4, 5, 6, 7 }; // Connect to the row pinouts of the keypad.
@@ -36,7 +25,6 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 void setup() {
   Serial.begin(9600);
-  //Keyboard.begin();
   Gamepad.begin();
 }
 
@@ -52,25 +40,25 @@ void loop() {
       if (keypad.key[i].stateChanged)
       {
         String msg;
-        char kchar = keypad.key[i].kchar;
+        uint8_t button = keypad.key[i].kchar;
         // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
         switch (keypad.key[i].kstate) {
           case PRESSED:
-            Gamepad.press(kchar);
+            Gamepad.press(button);
             msg = " PRESSED.";
             break;
           case HOLD:
             msg = " HOLD.";
             break;
           case RELEASED:
-            Gamepad.release(kchar);
+            Gamepad.release(button);
             msg = " RELEASED.";
             break;
           case IDLE:
             msg = " IDLE.";
         }
         Serial.print("Key ");
-        Serial.print(kchar);
+        Serial.print(button);
         Serial.println(msg);
         Gamepad.write();
       }
