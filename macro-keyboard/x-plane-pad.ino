@@ -36,7 +36,8 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 void setup() {
   Serial.begin(9600);
-  Keyboard.begin();
+  //Keyboard.begin();
+  Gamepad.begin();
 }
 
 void loop() {
@@ -51,40 +52,28 @@ void loop() {
       if (keypad.key[i].stateChanged)
       {
         String msg;
-        KeyboardKeycode kchar = keypad.key[i].kchar;
+        char kchar = keypad.key[i].kchar;
         // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
         switch (keypad.key[i].kstate) {
           case PRESSED:
-            handleKeyPress(kchar);
+            Gamepad.press(kchar);
             msg = " PRESSED.";
             break;
           case HOLD:
             msg = " HOLD.";
             break;
           case RELEASED:
+            Gamepad.release(kchar);
             msg = " RELEASED.";
             break;
           case IDLE:
             msg = " IDLE.";
-          }
-          Serial.print("Key ");
-          Serial.print(kchar);
-          Serial.println(msg);
+        }
+        Serial.print("Key ");
+        Serial.print(kchar);
+        Serial.println(msg);
+        Gamepad.write();
       }
     }
   }
-}
-
-// Handles a key press. Produces either a mapped KeyboardKeycode keypress or
-// KEY_LEFT_SHIFT + mapped key keypresses.
-void handleKeyPress(char key) {
-  KeyboardKeycode keyCode = mapping[key];
-  if (key > 4) {
-    Keyboard.press(KEY_LEFT_SHIFT);
-    Keyboard.press(mapping[key - 5]);
-  } else {
-    Keyboard.press(mapping[key]);
-  }
-  delay(10);
-  Keyboard.releaseAll();
 }
