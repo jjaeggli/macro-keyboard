@@ -1,11 +1,12 @@
-# macro-keyboard
+# macro-keyboard / x-plane-pad
 
 ## Purpose
 
-This is intended as the firmware for a USB macro or shortcut keyboard. Actual
-usage may vary based on your specific use case. The mapping could be extended to
-a game pad, half, or full keyboard. The current functionality is limited to my
-specific use case.
+This is intended as the firmware for a USB macro or shortcut keyboard, or for a
+gamepad input device. Actual usage may vary based on your specific use case. At
+the core of the design is a keypad matrix supporting full simultaneous key
+presses using only n x m pins. The mapping could be extended to a half or full
+keyboard. The current functionality is limited to my specific use cases.
 
 ## Features
 
@@ -15,9 +16,20 @@ specific use case.
 
 ## Firmware
 
+### macro-keyboard
+
 The provided source supports a 2 x 5 keyboard configuration with my current
 mapping for use with [Blender](http://www.blender.org), which is an incomplete
 use of the available keys.
+
+### x-plane-pad
+
+The same 2 x 5 matrix support but instead controls gamepad buttons 1 through 10
+as a HID gamepad, supporting full simultaneous press, hold, and release of all
+buttons independently. Works with keyboard switches, but should also work with
+any momentary or toggle switch.
+
+## Hardware
 
 The source is intended for use with an Arduino device which supports USB-HID.
 Commonly the [Sparkfun Pro Micro](https://www.sparkfun.com/products/12640)
